@@ -1,0 +1,29 @@
+{
+  "name": "mp3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node ./src/index.js",
+    "build": "babel ./src --out-dir build",
+    "clean": "rm -rf ./build",
+    "aws-build": "bash -c 'rm build.zip; zip -r build.zip ./build ./node_modules ./bin'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.268.1",
+    "dotenv": "^6.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "tempy": "^0.2.1",
+    "youtube-audio-stream": "^0.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.53",
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/node": "^7.0.0-beta.53",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.53",
+    "@babel/preset-env": "^7.0.0-beta.53"
+  }
+}
