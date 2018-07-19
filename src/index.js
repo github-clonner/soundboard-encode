@@ -61,18 +61,17 @@ const uploadAudio = (key, stream) => new Promise((resolve, reject) => {
 });
 
 export const handler = async ({ queryStringParameters: { url } = {} } = {}, event, callback) => {
-  if (!url) {
-    callback(new Error('Must specify a url!'));
-  }
-
   try {
+    if (!url) {
+      callback(new Error('Must specify a url!'));
+    }
+
     const { file, videoId } = await processYoutubeVideo(url);
     const data = await uploadAudio(videoId, file);
 
     callback(null, { body: 'Uploaded the video!!!!!!' });
-
   } catch (e) {
-    callback(e);
+    callback(e, { body: JSON.stringify({ error: e.message }) });
   }
 }
 
