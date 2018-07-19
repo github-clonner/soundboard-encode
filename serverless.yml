@@ -60,6 +60,10 @@ functions:
     handler: build/index.handler
     environment:
       FFMPEG_PATH: /var/task/bin/ffmpeg
+    events:
+      - http:
+        path: upload
+        method: put
     iamRoleStatements:
       - Effect: Allow
         Action:
