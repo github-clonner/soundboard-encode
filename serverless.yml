@@ -62,8 +62,8 @@ functions:
       FFMPEG_PATH: /var/task/bin/ffmpeg
     events:
       - http:
-        path: upload
-        method: put
+          path: upload
+          method: put
     iamRoleStatements:
       - Effect: Allow
         Action:
