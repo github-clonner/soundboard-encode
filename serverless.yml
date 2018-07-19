@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: encode_youtube_audio
+service: encode-youtube-audio
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -55,7 +55,7 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
+  encode_youtube_audio:
     handler: build/index.handler
 
 #    The following are a few example events you can configure
