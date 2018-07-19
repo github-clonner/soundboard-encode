@@ -27,8 +27,9 @@ image: node:10-alpine
 title: lint and test
 working_directory: ${{main_clone}}
 commands:
-- yarn lint
-- yarn test
+- npm i
+- npm run build
+- npm prune --production
  
 package:
 image: codefresh/serverless:1.28
