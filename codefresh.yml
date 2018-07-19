@@ -19,14 +19,12 @@ steps:
       - npm i
       - npm run build
       - npm prune --production
-      - ls
   
   package:
     image: codefresh/serverless:1.28
     title: package serverless service
     working_directory: ${{main_clone}}
     commands:
-      - ls
       - serverless package --stage ${AWS_STAGE} --region ${AWS_REGION} --package ${PACKAGE}
   
   # archive:
