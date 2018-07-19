@@ -31,7 +31,7 @@ provider:
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::youtube-soundboard"", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:PutObject"
@@ -60,6 +60,16 @@ functions:
     handler: build/index.handler
     environment:
       FFMPEG_PATH: /var/task/bin/ffmpeg
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - 's3::PutObject'
+        Resource:
+          Fn::Join:
+            - ""
+            - - "arn:aws:s3:::youtube-soundboard"
+              - Ref: ServerlessDeploymentBucket
+              - "/*"
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
