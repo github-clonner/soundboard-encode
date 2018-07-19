@@ -13,7 +13,7 @@ steps:
   
   test:
     image: node:10-alpine
-    title: lint and test
+    title: build the function
     working_directory: ${{main_clone}}
     commands:
       - npm i
@@ -27,12 +27,12 @@ steps:
     commands:
       - serverless package --stage ${AWS_STAGE} --region ${AWS_REGION} --package ${PACKAGE}
   
-  archive:
-    image: mesosphere/aws-cli
-    title: archive package to S3 bucket
-    working_directory: ${{main_clone}}
-    commands:
-      - aws --profile ${AWS_PROFILE} --region ${AWS_REGION} s3 cp ${PACKAGE} s3://${AWS_BUCKET}/${{CF_BRANCH}}/${{CF_SHORT_REVISION}}/ --recursive
+  # archive:
+  #   image: mesosphere/aws-cli
+  #   title: archive package to S3 bucket
+  #   working_directory: ${{main_clone}}
+  #   commands:
+  #     - aws --profile ${AWS_PROFILE} --region ${AWS_REGION} s3 cp ${PACKAGE} s3://${AWS_BUCKET}/${{CF_BRANCH}}/${{CF_SHORT_REVISION}}/ --recursive
   
   deploy:
     image: codefresh/serverless:1.28
