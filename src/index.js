@@ -60,9 +60,9 @@ const uploadAudio = (key, stream) => new Promise((resolve, reject) => {
   });
 });
 
-export const handler = async ({ queryStringParameters: { url } }, event, callback) => {
+export const handler = async ({ queryStringParameters: { url } = {} }, event, callback) => {
   if (!url) {
-    callback(new Error('Must specify a url'))
+    callback(new Error('Must specify a url'));
   }
 
   try {
