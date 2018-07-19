@@ -58,6 +58,8 @@ provider:
 functions:
   encode_youtube_audio:
     handler: build/index.handler
+    environment:
+      FFMPEG_PATH: /var/task/bin/ffmpeg
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
