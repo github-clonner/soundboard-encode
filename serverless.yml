@@ -20,6 +20,7 @@ service: encode-youtube-audio
 provider:
   name: aws
   runtime: nodejs8.10
+  memorySize: 128
 
 # you can overwrite defaults here
 #  stage: dev
