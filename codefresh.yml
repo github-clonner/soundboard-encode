@@ -57,12 +57,12 @@ steps:
   #     - ${INTEGRATION_FAILED} && echo "rollback to previous version on error" || true
   #     - ${INTEGRATION_FAILED} && if [ ! -z "${KEEP_VERSION}" ]; then serverless rollback --verbose --timestamp ${KEEP_VERSION} --region ${AWS_REGION} --stage ${AWS_STAGE} --aws-profile ${AWS_PROFILE}; fi || true
   
-  cleanup:
-    image: codefresh/serverless:1.28
-    title: cleanup allocated resources
-    working_directory: ${{main_clone}}
-    commands:
-      - serverless remove --verbose --region ${AWS_REGION} --stage ${AWS_STAGE} --aws-profile ${AWS_PROFILE}
+  # cleanup:
+  #   image: codefresh/serverless:1.28
+  #   title: cleanup allocated resources
+  #   working_directory: ${{main_clone}}
+  #   commands:
+  #     - serverless remove --verbose --region ${AWS_REGION} --stage ${AWS_STAGE} --aws-profile ${AWS_PROFILE}
   
   decide_on_status:
     image: alpine:3.7

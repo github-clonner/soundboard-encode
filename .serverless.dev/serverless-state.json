@@ -1,0 +1,190 @@
+{
+  "service": {
+    "service": "encode-youtube-audio",
+    "serviceObject": {
+      "name": "encode-youtube-audio"
+    },
+    "provider": {
+      "stage": "dev",
+      "region": "us-east-1",
+      "variableSyntax": "\\${([ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}",
+      "name": "aws",
+      "runtime": "nodejs8.10",
+      "versionFunctions": true,
+      "remoteFunctionData": null,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          },
+          "EncodeUnderscoreyoutubeUnderscoreaudioLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/encode-youtube-audio-dev-encode_youtube_audio"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "dev",
+                        "encode-youtube-audio",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/encode-youtube-audio-dev-encode_youtube_audio:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/encode-youtube-audio-dev-encode_youtube_audio:*:*"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "encode-youtube-audio",
+                    "dev",
+                    "us-east-1",
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "EncodeUnderscoreyoutubeUnderscoreaudioLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/encode-youtube-audio/dev/1531976823370-2018-07-19T05:07:03.370Z/encode-youtube-audio.zip"
+              },
+              "FunctionName": "encode-youtube-audio-dev-encode_youtube_audio",
+              "Handler": "build/index.handler",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs8.10",
+              "Timeout": 6
+            },
+            "DependsOn": [
+              "EncodeUnderscoreyoutubeUnderscoreaudioLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "EncodeUnderscoreyoutubeUnderscoreaudioLambdaVersionMsZR0wSPcUN6LdZpUUvzuVgFTNx3E0F0FNBDaZhVY": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "EncodeUnderscoreyoutubeUnderscoreaudioLambdaFunction"
+              },
+              "CodeSha256": "S1Skg9EAZPuBRx311/6vRzJ5RgjPL4w8/X4FeY69HWg="
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          },
+          "EncodeUnderscoreyoutubeUnderscoreaudioLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "EncodeUnderscoreyoutubeUnderscoreaudioLambdaVersionMsZR0wSPcUN6LdZpUUvzuVgFTNx3E0F0FNBDaZhVY"
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "pluginsData": {},
+    "functions": {
+      "encode_youtube_audio": {
+        "handler": "build/index.handler",
+        "events": [],
+        "name": "encode-youtube-audio-dev-encode_youtube_audio",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs8.10",
+        "vpc": {}
+      }
+    },
+    "artifact": "C:\\Users\\karam\\Code\\MP3\\.serverless\\encode-youtube-audio.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/encode-youtube-audio/dev/1531976823370-2018-07-19T05:07:03.370Z",
+    "artifact": "encode-youtube-audio.zip"
+  }
+}

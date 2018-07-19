@@ -69,7 +69,7 @@ export const handler = async ({ queryStringParameters: { url } = {} } = {}, even
     const { file, videoId } = await processYoutubeVideo(url);
     const data = await uploadAudio(videoId, file);
 
-    callback(null, { body: 'Uploaded the video!!!!!' });
+    callback(null, { body: 'Uploaded the video!!!!!!' });
 
   } catch (e) {
     callback(e);
