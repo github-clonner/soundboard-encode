@@ -41,21 +41,21 @@ steps:
     commands:
       - serverless deploy --conceal --verbose --stage ${AWS_STAGE} --region ${AWS_REGION} --aws-profile ${AWS_PROFILE} --package ${PACKAGE}
   
-  integration:
-    image: codefresh/serverless:1.28
-    title: run integration test
-    working_directory: ${{main_clone}}
-    fail_fast: false
-    commands:
-      - serverless invoke --function currentTime --stage ${AWS_STAGE} --region ${AWS_REGION} --path test/data.json && cf_export INTEGRATION_FAILED=false || cf_export INTEGRATION_FAILED=true
+  # integration:
+  #   image: codefresh/serverless:1.28
+  #   title: run integration test
+  #   working_directory: ${{main_clone}}
+  #   fail_fast: false
+  #   commands:
+  #     - serverless invoke --function currentTime --stage ${AWS_STAGE} --region ${AWS_REGION} --path test/data.json && cf_export INTEGRATION_FAILED=false || cf_export INTEGRATION_FAILED=true
   
-  rollback:
-    image: codefresh/serverless:1.28
-    title: rollback if integration test failed
-    working_directory: ${{main_clone}}
-    commands:
-      - ${INTEGRATION_FAILED} && echo "rollback to previous version on error" || true
-      - ${INTEGRATION_FAILED} && if [ ! -z "${KEEP_VERSION}" ]; then serverless rollback --verbose --timestamp ${KEEP_VERSION} --region ${AWS_REGION} --stage ${AWS_STAGE} --aws-profile ${AWS_PROFILE}; fi || true
+  # rollback:
+  #   image: codefresh/serverless:1.28
+  #   title: rollback if integration test failed
+  #   working_directory: ${{main_clone}}
+  #   commands:
+  #     - ${INTEGRATION_FAILED} && echo "rollback to previous version on error" || true
+  #     - ${INTEGRATION_FAILED} && if [ ! -z "${KEEP_VERSION}" ]; then serverless rollback --verbose --timestamp ${KEEP_VERSION} --region ${AWS_REGION} --stage ${AWS_STAGE} --aws-profile ${AWS_PROFILE}; fi || true
   
   cleanup:
     image: codefresh/serverless:1.28
