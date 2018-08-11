@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { toNumber } from 'lodash';
 import process from 'process';
 import dotenv from 'dotenv';
 import { PassThrough } from 'stream';
@@ -6,7 +6,7 @@ import { PassThrough } from 'stream';
 import { S3 } from 'aws-sdk';
 import youtubeStream from 'youtube-audio-stream';
 import ffmpeg from 'fluent-ffmpeg';
-import { resolve } from 'dns';
+import url from 'url';
 
 dotenv.config();
 
@@ -25,6 +25,13 @@ const getYoutubeVideo = youtubeUrl => new Promise((resolve, reject) => {
   }
 });
 
+const getTimeAndStartTime = youtubeUrl => {
+  const parsedUrl = url.parse(youtubeUrl, true);
+  const queryParams = parsedUrl.searchParams;
+  const startTime = queryParams.get('t');
+  const duration = queryParams.get('duration');
+};
+
 const processYoutubeVideo = async (youtubeUrl) => {
   const file = new PassThrough();
 
@@ -32,6 +39,7 @@ const processYoutubeVideo = async (youtubeUrl) => {
     stream,
     info: { video_id: videoId }
   } = await getYoutubeVideo(youtubeUrl);
+
 
 
   ffmpeg(stream).format('mp3').setStartTime(0.2).pipe(file);
