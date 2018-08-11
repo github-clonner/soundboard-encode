@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "babel-node ./src/index.js",
-    "build": "babel ./src --out-dir build",
+    "build": "babel ./src --ignore '**/__test__/*.js' --out-dir build",
     "clean": "rm -rf ./build",
     "aws-build": "bash -c 'rm build.zip; zip -r build.zip ./build ./node_modules ./bin'"
   },
@@ -17,7 +17,10 @@
     "dotenv": "^6.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.7",
     "tempy": "^0.2.1",
+    "uuid": "^3.3.2",
     "youtube-audio-stream": "^0.2.0"
   },
   "devDependencies": {

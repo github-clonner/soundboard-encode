@@ -1,7 +1,11 @@
-import { forEach, has, toNumber, isNumber } from 'lodash';
+import { forEach, has, toNumber, isString } from 'lodash';
 
 // Convert a #h#m#s string to seconds
 export default function parseYoutubeStartTime(startTime) {
+  if (!startTime) {
+    return 0;
+  }
+
   const time = {
     h: 0,
     m: 0,

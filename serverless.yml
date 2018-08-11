@@ -21,13 +21,17 @@ provider:
   name: aws
   runtime: nodejs8.10
   memorySize: 128
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 's3:PutObject'
+      Resource: "arn:aws:s3:::youtube-soundboard"
 
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:ListBucket"
@@ -68,10 +72,14 @@ functions:
       - Effect: Allow
         Action:
           - 's3::PutObject'
+        Resource: "arn:aws:s3:::youtube-soundboard"
+      - Effect: Allow
+        Action:
+          - 's3::PutObject'
         Resource:
           Fn::Join:
             - ""
-            - - "arn:aws:s3:::youtube-soundboard"
+            - - "arn:aws:s3:::"
               - Ref: ServerlessDeploymentBucket
               - "/*"
 
